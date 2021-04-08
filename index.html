@@ -4,27 +4,74 @@
 </head>
 <body>
 
+
+    <style>
+
+
+body{
+    background-image: url('https://media.giphy.com/media/3oriNO0p3Sn0itamg8/giphy.gif');
+    background-size:auto;
+    
+    
+    
+    height: 100vh;
+    padding:0;
+    margin:0;
+}
+
+    </style>
+    <div class="heart"></div>
     <div>
-        <button type="randomSong" onclick="randomSong()">Random Music</button>
-        <input name="randomSong" id="randomSong">
-      </div>
-    <div>
+        <br>
         Link do que vc quer:
         <input type="text" id="firstname">
         <br>
-        <p>Seu link: <b id='boldStuff2'></b> 
+        <p>último link: <b id='boldStuff2'></b> 
         </p>
         <p>Lista com os links:</p>
         <ol id="demo"></ol>
-        <input type='button' onclick='changeText2()' value='Submit' />
+        <input type='button' onclick='changeText2()' value='Adicionar na lista' /><br>
+        <br>
+    <button type="randomSong" onclick="randomizeList()">Embaralhar lista</button><br>
+    <br>
+    <a href = "mailto:gubilionario@gmail.com?subject=Lista comprar&body=te amo pra caralho gus! compra pra mim alguma dessas coisas?">
+        mandar pro email do gus a listinha 
+        </a>
+    <br>quando terminar de adicionar e embaralhar a lista, copie a lista e cole no email clicando no link "mandar para email do gus"
+  </div>
 
+  <audio src="https://www.bensound.com/bensound-music/bensound-moose.mp3"></audio>
 
-</div>
+  
 <script>
-    
+
+function randomizeItems(items)
+{
+    var cached = items.slice(0), temp, i = cached.length, rand;
+    while(--i)
+    {
+        rand = Math.floor(i * Math.random());
+        temp = cached[rand];
+        cached[rand] = cached[i];
+        cached[i] = temp;
+    }
+    return cached;
+}
+function randomizeList()
+{  
+var list = document.getElementById('demo');
+    var nodes = list.children, i = 0;
+    nodes = Array.prototype.slice.call(nodes);
+    nodes = randomizeItems(nodes);
+    while(i < nodes.length)
+    {
+        list.appendChild(nodes[i]);
+        ++i;
+    }
+    list.style.display="block";
+}
 
 var list = document.getElementById('demo');
-
 function changeText2() {
     var firstname = document.getElementById('firstname').value;
     document.getElementById('boldStuff2').innerHTML = firstname;
@@ -35,16 +82,39 @@ function changeText2() {
 
 var lista = document.getElementById('firstname').value;
 
-var lalala = $('#firstname').val();
 
-$('ol').append(lalala);
 
-var song = Array("song1", "song2", "song3", "song4", "song5", "song6");
+
 
 function randomSong() {
-  var randomSong = song[Math.floor(Math.random() * song.length)];
+  var randomSong = list[Math.floor(Math.random() * list.length)];
   document.getElementById('randomSong').value = randomSong;
 }
+
+window.addEventListener("DOMContentLoaded", event => {
+  const audio = document.querySelector("audio");
+  audio.volume = 0.2;
+  audio.play();
+});
+
+const button = document.querySelector("#button");
+const icon = document.querySelector("#button > i");
+const audio = document.querySelector("audio");
+
+button.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.volume = 0.2;
+    audio.play();
+    icon.classList.remove('fa-volume-up');
+    icon.classList.add('fa-volume-mute');
+    
+  } else {
+    audio.pause();
+    icon.classList.remove('fa-volume-mute');
+    icon.classList.add('fa-volume-up');
+  }
+  button.classList.add("fade");
+});
 
 </script>
 </body>
